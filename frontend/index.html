@@ -16,7 +16,7 @@
 <script>
    const getNotes=()=>{
     fetch("https://notes-app-n9p0.onrender.com/notes/read",{
-        method:"GET",
+
         headers:{
             "Content-type":"application/json",
             authorization:`Bearer ${localStorage.getItem("token")}`
