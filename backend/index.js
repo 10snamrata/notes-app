@@ -16,7 +16,7 @@ app.use("/users",userRouter)
 app.use("/notes",noteRouter)
 
 
-app.listen(process.env.port,async()=>{
+app.listen(process.env.PORT,async()=>{
     try{
    await connection 
    console.log(`Server is running at port ${process.env.PORT}`);
