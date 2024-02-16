@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Note</title>
+</head>
+<body>
+    <h2>Delete Note</h2>
+    <input type="text" placeholder="Enter note ID..." id="noteId">
+    <button onclick="deleteNote()">Delete Note</button>
+</body>
+<script>
+    const deleteNote = () => {
+        const id = document.getElementById("noteId").value;
+
+        fetch(`https://notes-app-n9p0.onrender.com/notes/delete/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Failed to delete note');
+            }
+            console.log(`Note with ID ${id} deleted successfully.`);
+        })
+        .catch(err => console.error(err));
+    }
+</script>
+</html>

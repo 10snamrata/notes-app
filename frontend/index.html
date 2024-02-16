@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h2>Notes</h2>
+    <div id="conatiner">Notes Are Available</div>
+    <button onclick="handleNote()" >Add a new note</button>
+    <button onclick="updateNote()" >Edit the note</button>
+    <button onclick="deleteNote()">Delete the note</button>
+    <button onclick="showNote()">Show  Notes</button>
+</body>
+<script>
+   const getNotes=()=>{
+    fetch("https://notes-app-n9p0.onrender.com/notes/read",{
+        method:"GET",
+        headers:{
+            "Content-type":"application/json",
+            authorization:`Bearer ${localStorage.getItem("token")}`
+        }
+    }).then(res=>res.json())
+     .then(data=>{
+        console.log(data)
+     })
+     .catch(err=>console.log(err))
+   }
+   const handleNote=()=>{
+    window.location.href=("addnote.html")
+   }
+
+   const updateNote=()=>{
+    window.location.href=("updatenote.html")
+   }
+
+   const deleteNote=()=>{
+    window.location.href=("deletenote.html")
+   }
+
+   const showNote=()=>{
+    window.location.href=("shownotes.html")
+   }
+   getNotes()
+</script>
+</html>

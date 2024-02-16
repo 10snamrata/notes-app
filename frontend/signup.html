@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserRegister</title>
+</head>
+<body>
+    <h2>Registration Form</h2>
+    <input type="text" placeholder="Enter username.." id="username">
+    <input type="text" placeholder="Enter email.." id="email">
+    <input type="password" placeholder="Enter password.." id="pass">
+    <button onclick="handleRegistration()">Register!</button>
+</body>
+<script>
+    const handleRegistration=()=>{
+     let username=document.getElementById("username").value
+     let email=document.getElementById("email").value
+     let pass=document.getElementById("pass").value
+     const payload={
+        username,email,pass
+     }
+      //console.log(payload)
+     //connection to BE(making request)
+     fetch("https://notes-app-n9p0.onrender.com/users/register",{
+        method:"POST",
+        headers:{
+            "Content-type":"application/json"
+        },
+            body:JSON.stringify(payload)
+     }).then(res=>res.json())
+     .then(data=>console.log(data))
+     .catch(err=>console.log(err))
+    }
+</script>
+</html>
+

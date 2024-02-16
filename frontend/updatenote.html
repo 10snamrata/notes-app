@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Note</title>
+</head>
+<body>
+    <h2>Edit Note</h2>
+    <input type="text" placeholder="Enter new title.." id="title">
+   <textarea type="text" id="body" placeholder="Enter new body.."></textarea>
+   <input type="text" id="id" placeholder="Enter id....">
+   <button onclick="updateNote()">Edit the note</button>
+</body>
+<script>
+    const updateNote=()=>{
+        let title=document.getElementById("title").value
+        let body=document.getElementById("body").value
+        let id = document.getElementById('id').value;
+
+        const payload={
+            title,body
+        }
+        const token =localStorage.getItem("token")
+    fetch(`https://notes-app-n9p0.onrender.com/notes/update/${id}`,{
+        method:"PATCH",
+        headers:{
+            "Content-type":"application/json",
+            authorization:`Bearer ${localStorage.getItem("token")}`
+        },
+        body:JSON.stringify(payload)
+    }).then(res=>res.json())
+    .then(data=>console.log(data))
+    .catch(err=>console.log(err))
+}
+
+</script>
+</html> 

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Notes</title>
+    <style>
+        .card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-body {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+    </style>
+</head>
+
+<body>
+    <h1>Notes</h1>
+    <div id="container">
+    </div>
+</body>
+<script>
+    const container=document.getElementById("container")
+   
+    function createCard(item){
+        const cont = document.createElement("div");
+        cont.classList.add("card");
+
+
+        const title = document.createElement("h3");
+        title.innerText=item.title
+        title.classList.add("card-title");
+        
+        const body = document.createElement("div");
+        body.innerText=item.body
+        body.classList.add("card-body");
+
+        cont.append(title,body)
+        return cont
+    }
+
+    function appendData(data){
+        container.innerHTML=""
+        data.forEach(element => {
+            container.append(createCard(element))
+        });
+    }
+
+    async function fetchNotes(){
+        try{
+            const token =localStorage.getItem("token")
+            // console.log(token);
+            const res = await fetch('https://notes-app-n9p0.onrender.com/notes/read',{
+                headers:{
+                    "Authorization":`Bearer ${token}`
+                }
+            })
+            const data = await res.json();
+            console.log(data);
+            appendData(data.notes)
+
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+    fetchNotes()
+   
+
+</script>
+</html>

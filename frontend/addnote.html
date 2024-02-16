@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Note</title>
+</head>
+<body>
+    <h2>Add Note</h2>
+    <input type="text" placeholder="Enter title.." id="title">
+   <textarea type="text" id="body"></textarea>
+   <button onclick="addNote()">Add New Note</button>
+</body>
+<script>
+    const addNote=()=>{
+        let title=document.getElementById("title").value
+        let body=document.getElementById("body").value
+        const payload={
+            title,body
+        }
+    
+    fetch("https://notes-app-n9p0.onrender.com/notes/create",{
+        method:"POST",
+        headers:{
+            "Content-type":"application/json",
+            authorization:`Bearer ${localStorage.getItem("token")}`
+        },
+        body:JSON.stringify(payload)
+    }).then(res=>res.json())
+    .then(data=>console.log(data))
+    .catch(err=>console.log(err))
+}
+
+</script>
+</html> 
