@@ -19,7 +19,7 @@ app.use("/notes",noteRouter)
 app.listen(process.env.port,async()=>{
     try{
    await connection 
-   console.log(`Server is running at port ${process.env.port}`);
+   console.log(`Server is running at port ${process.env.PORT}`);
    console.log("Connected to db");
     }catch(err){
      console.log("error",err);
